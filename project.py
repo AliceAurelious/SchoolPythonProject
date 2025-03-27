@@ -18,5 +18,4 @@ if attempts > 1:
     attempts = str(attempts)
     print("You needed " + attempts +" attempts.")
 elif attempts == 1:
-    attempts = str(attempts)
-    print("You needed " + attempts +" attempt.")
+    print("You needed 1 attempt.")
