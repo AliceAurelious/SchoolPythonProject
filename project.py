@@ -1,4 +1,5 @@
 import random
+import shelve
 
 def get_highscore():
     try:
