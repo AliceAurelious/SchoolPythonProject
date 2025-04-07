@@ -1,6 +1,7 @@
 import random
 import shelve
 
+# fetch current highscore
 def get_highscore():
     try:
         with open('highscores.txt', 'r') as file:
@@ -18,6 +19,20 @@ def get_highscore():
 def update_highscore(playername, attempts):
     with open('highscores.txt', 'w') as file:
         file.write(f"{playername},{attempts}\n")
+
+# function to read player number input and handle errors with the input
+def input_playernumber():
+    while True:
+        try:
+            input_str = input("Please input a number between 1-100: ")
+            playernumber = int(input_str)
+            if playernumber > 0 and playernumber < 101:
+                return playernumber
+            else:
+                print("Invalid number! Try again!")
+        except ValueError:
+            print("Invalid number! Try again!")
+            inputNumber = -1
         
 # generate a random int in between 1 and 100
 randomNumber = random.randint(1, 100)
@@ -25,11 +40,11 @@ randomNumber = random.randint(1, 100)
 print(randomNumber)
 
 attempts = 0
-inputNumber = -1
 playername = input("What's your name? ")
+inputNumber = -1
 
 while inputNumber != randomNumber:
-    inputNumber = int(input("Please input a Number between 1-100: "))
+    inputNumber = input_playernumber()
     if inputNumber < randomNumber:
         print("Too low Cutie 😘")
     if inputNumber > randomNumber:
@@ -37,17 +52,12 @@ while inputNumber != randomNumber:
     attempts = attempts + 1
 print("You guessed the Number Cutie 🥳")
 
-if attempts > 1:
-    print("You needed "+ str(attempts) +" attempts.")
-elif attempts == 1:
-    print("You needed 1 attempt.")
-
 # get the current highscore from the file
 highscore_name, highscore_score = get_highscore()
 
 # compare current score with highscore
 if highscore_score == 0 or attempts < highscore_score:
-    print(f"Good job, {playername}! NEW HIGHSCORE! 🎉")
+    print(f"Good job, {playername}! {attempts} ATTEMPTS MAKE A NEW HIGHSCORE! 🎉")
     update_highscore(playername, attempts)
 else:
-    print(f"CORRECT, but: {highscore_name} with {highscore_score} attempts was better at guessing than you.")
+    print(f"BUT: {highscore_name} with {highscore_score} attempts was better at guessing than you.")
